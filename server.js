@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const dbConnection = require("./config/db");
 const colors = require("colors");
+const errorHandler = require("./middleware/error");
+
 
 // const logger = require("./middleware/logger");
 
@@ -22,6 +24,7 @@ const app = express();
 // Body Parser
 app.use(express.json());
 
+
 PORT = process.env.PORT || 5001;
 
 // Development Logging Middleware
@@ -33,12 +36,15 @@ if(process.env.NODE_ENV === "development"){
 
 app.use('/', router);
 
+// error Handling
+app.use(errorHandler);
 
 // Call Server
 const server = app.listen(
     PORT,
     console.log(`Server Running on ${process.env.NODE_ENV} mode on port ${PORT}`.white.bold)
      );
+
 
 // Handle UnHandle promise rejection      
 

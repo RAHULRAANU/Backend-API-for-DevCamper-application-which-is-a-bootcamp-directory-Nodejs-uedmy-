@@ -4,7 +4,7 @@ const BootCampSchema = new mongoose.Schema({
 
     name : {
         type : String,
-        require : [true, "Please add the name"],
+        required : [true, "Please add the name"],
         maxLength : [50, "Name Cannot be more than 50 character "],
         unique : true,
         trim : true
@@ -12,12 +12,12 @@ const BootCampSchema = new mongoose.Schema({
     slug : String,
     description : {
         type: String,
-        require : [true, "please add a description"],
+        required : [true, "please add a description"],
         maxLength : [500, " description cannot be more than 500 character"]
     },
-    websites : {
+    website : {
         type : String,
-        require : true, 
+        // required : true, 
         match : [
             /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
             "please add a valid URL with HTTP or HTTPS "
@@ -26,12 +26,12 @@ const BootCampSchema = new mongoose.Schema({
     },          
     phone : {
         type : String,
-        require : true,
+        required : true,
         maxLength : [15, "Phone number cannot be longer than 15 character"]
     },
     email : {
         type : String,
-        require : true,
+        required : true,
         match :  [
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             "Please add a valid Email"
@@ -39,19 +39,18 @@ const BootCampSchema = new mongoose.Schema({
     }, 
     address : {
         type : String,
-        require : [true, "please add an address"]
+        required : [true, "please add an address"]
 
     },
     location : {
+        // GeoJSON Point
         type : {
         type : String,
-        require : true,
         enum : ['Point']
     },
     coordinates :
     {
         type : [Number],
-        require : true,
         index : "2dsphere"
     },
     formattedAddress : String,
@@ -63,7 +62,7 @@ const BootCampSchema = new mongoose.Schema({
     },
     careers : {
         type : [String],
-        require : true,
+        required : true,
         enum : ["Web Development", "Mobile Development", "UI/UX", "Data Science", "Business", "others"]
     },
     averageRating : {

@@ -32,12 +32,16 @@ if(process.env.NODE_ENV === "development"){
     app.use(morgan('dev'))
 } 
 
+
 // app.use(logger);             // instead of logger morgan is used
+
 
 app.use('/', router);
 
+
 // error Handling
 app.use(errorHandler);
+
 
 // Call Server
 const server = app.listen(

@@ -1,4 +1,4 @@
 /node_modules
-/config/config.env
+# /config/config.env
 
-# /home/rahul/Desktop/devcamp_api/config/config.env
+/home/rahul/Desktop/devcamp_api/config/config.env

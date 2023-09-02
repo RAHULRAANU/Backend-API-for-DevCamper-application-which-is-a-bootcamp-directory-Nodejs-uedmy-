@@ -2,19 +2,31 @@ const express = require("express");
 const router = express.Router();
 
 const {
+
     getBootCamps,
     getBootCamp,
     createBootCamp,
     updateBootCamp,
-    deleteBootCamp
+    deleteBootCamp,
+    getBootCampInRadius,
+    BootCampPhotoUpload
 
 } = require("../controller/bootcamp");
 
 
+// Include other resource data
+const CourseRouter = require("./courses");
 
-router.route('/api/v1/bootCamp/').get(getBootCamps).post(createBootCamp);
+// Re-route into other resources router
+router.use('/:bootCampId/course', CourseRouter);
 
-router.route('/api/v1/bootCamp/:id').get(getBootCamp).put(updateBootCamp).delete(deleteBootCamp);
+router.route('/radius/:zipcode/:distance').get(getBootCampInRadius);
+
+router.route('/:id/photo').put(BootCampPhotoUpload);
+
+router.route('/').get(getBootCamps).post(createBootCamp);
+
+router.route('/:id').get(getBootCamp).put(updateBootCamp).delete(deleteBootCamp);
 
 
 module.exports = router;

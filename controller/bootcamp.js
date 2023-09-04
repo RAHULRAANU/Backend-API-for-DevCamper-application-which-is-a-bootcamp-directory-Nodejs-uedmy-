@@ -3,6 +3,7 @@ const BootCamp = require("../models/Bootcamp");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorresponse");
 const geocoder = require("../utils/geocoder");
+const advancedResults = require("../middleware/advancedResults")
 
 
 //@desc  all bootCamps
@@ -10,14 +11,11 @@ const geocoder = require("../utils/geocoder");
 //@access public
 
 exports.getBootCamps = asyncHandler( async (req, res, next ) => {
-
-    console.log(req.query);
+    // console.log(req.query);
+    // const fetchBootCamp = await BootCamp.find() ;
+    // res.status(200).json({SUCCESS : true, count : fetchBootCamp.length, data : fetchBootCamp });
+    res.status(200).json(res.advancedResults);
     
-    const fetchBootCamp = await BootCamp.find() ;
-
-    res.status(200).json({SUCCESS : true, count : fetchBootCamp.length, data : fetchBootCamp });
-        
-
 });
 
 

@@ -17,6 +17,7 @@ dbConnection();
 // route files
 const bootCamp = require("./routes/bootcamp");
 const courses = require("./routes/courses");
+const auth = require("./routes/auth");
 
 const app = express();
 
@@ -35,8 +36,9 @@ if(process.env.NODE_ENV === "development"){
 // app.use(logger);             // instead of logger morgan is used
 
 
-app.use('/api/v1/bootCamp/', bootCamp);
+app.use("/api/v1/bootCamp/", bootCamp);
 app.use("/api/v1/course/", courses);
+app.use("/api/v1/auth/", auth);
 
 // error Handling
 app.use(errorHandler);

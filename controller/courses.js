@@ -40,10 +40,7 @@ exports.getCourses = asyncHandler(async (req, res, next) => {
 
 exports.getCourse = asyncHandler(async (req, res, next) => {
 
-    const course = await Course.findById(req.params.id).populate({
-        path : 'bootcamp',
-        select : 'name description'
-    });
+    const course = await Course.findById(req.params.id)
 
     if(!course){
         return next(new ErrorResponse(`No Course with this  id of ${req.params.id}`), 404);

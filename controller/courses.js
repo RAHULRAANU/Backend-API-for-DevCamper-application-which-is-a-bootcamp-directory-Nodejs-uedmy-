@@ -1,6 +1,6 @@
 const Course = require("../models/Course");
 const asyncHandler = require("../middleware/async");
-const ErrorResponse = require("../utils/errorresponse");
+const ErrorResponse = require("../utils/errorResponse");
 const Bootcamp = require("../models/Bootcamp");
 
 
@@ -11,23 +11,19 @@ const Bootcamp = require("../models/Bootcamp");
 
 exports.getCourses = asyncHandler(async (req, res, next) => {
 
-    let query;
+    if(req.params.boocampId){
 
-    if(req.params.bootCampId){
+        const courses = Course.find({ bootcamp : req.params.bootcampId });
 
-        query = Course.find({ bootcamp : req.params.bootCampId });
-
-    }else{
-        query = Course.find();
-    }
-
-    const courses = await query;
-    
-    res.status(200).json({
+        return  res.status(200).json({
         success : true,
         count : courses.length,
         data : courses
     });
+
+    }else{
+        return res.status(200).json(res.advancedResults);
+    }
 
 });
 
@@ -40,7 +36,10 @@ exports.getCourses = asyncHandler(async (req, res, next) => {
 
 exports.getCourse = asyncHandler(async (req, res, next) => {
 
-    const course = await Course.findById(req.params.id)
+    const course = await Course.findById(req.params.id).populate({
+        path : "bootcamp",
+        select : "name description"
+    });
 
     if(!course){
         return next(new ErrorResponse(`No Course with this  id of ${req.params.id}`), 404);
@@ -58,16 +57,16 @@ exports.getCourse = asyncHandler(async (req, res, next) => {
 
 //@desc  Add Course
 //@route POST /api/vi/bootCamp/:bootCampId/course
-//access private
+//access private    
 
 exports.AddCourse = asyncHandler(async (req, res, next) => {
 
-    req.body.bootcamp = req.params.bootCampId;
+    req.body.bootcamp = req.params.bootcampId;
 
-    const bootcamp = await Bootcamp.findById(req.params.bootCampId);
+    const bootcamp = await Bootcamp.findById(req.params.bootcampId);
 
     if(!bootcamp){
-        return next(new ErrorResponse(`No Bootcamp with this  id of ${req.params.bootCampId}`), 404);
+        return next(new ErrorResponse(`No BootCamp with this  id of ${req.params.bootcampId}`), 404);
     };
     
     const course = await Course.create(req.body);

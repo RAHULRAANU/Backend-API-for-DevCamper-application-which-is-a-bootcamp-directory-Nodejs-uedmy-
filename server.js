@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const fileUpload = require("express-fileupload");
+const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv").config();
 const morgan = require("morgan");
 const dbConnection = require("./config/db");
@@ -25,6 +26,9 @@ const app = express();
 // Body Parser
 app.use(express.json());
 
+//cookie parser
+app.use(cookieParser());
+
 // File uploading
 app.use(fileUpload());
 
@@ -32,6 +36,7 @@ app.use(fileUpload());
 if(process.env.NODE_ENV === "development"){
     app.use(morgan('dev'))
 } 
+
 
 // app.use(logger);             // instead of logger morgan is used
 

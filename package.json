@@ -14,6 +14,7 @@
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
+    "crypto": "^1.0.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
@@ -22,6 +23,7 @@
     "geo-coder": "^1.0.2",
     "jsonwebtoken": "^9.0.2",
     "node-geocoder": "^4.2.0",
+    "nodemailer": "^6.9.5",
     "path": "^0.12.7",
     "promise": "^8.3.0",
     "slugify": "^1.6.6"
